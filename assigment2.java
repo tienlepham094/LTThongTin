@@ -24,7 +24,7 @@ public class assigment2 {
             choice = Integer.parseInt(sc.nextLine());
             switch(choice){
                 case 1:
-                    HuffmanCoding huffman = new HuffmanCoding(str);
+                    HuffmanCoding huffman = new HuffmanCoding(str.toLowerCase());
 
                     String encoded = huffman.encode();
                     System.out.println("Encoded: " + encoded);
