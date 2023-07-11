@@ -5,26 +5,26 @@ import java.util.PriorityQueue;
 
 // node cua cay
 class Node {
-    private int data; // binary format
+    private int value; // binary format
     private char character;
     private Node left;
     private Node right;
     
-    public Node(int data, char character) {
-        this.data = data;
+    public Node(int value, char character) {
+        this.value = value;
         this.character = character;
         this.left = null;
         this.right = null;
     }
     
-    public Node(int data, Node left, Node right) {
-        this.data = data;
+    public Node(int value, Node left, Node right) {
+        this.value = value;
         this.character = '\0';
         this.left = left;
         this.right = right;
     }
     
-    public int getData() { return data; }
+    public int getValue() { return value; }
     public char getCharacter() { return character; }
     public Node getLeft() { return left; }
     public Node getRight() { return right; }
@@ -32,13 +32,25 @@ class Node {
     public boolean isLeaf() {
         return left == null && right == null && character != '\0';
     }
+}
+class NodeComparator implements Comparator<Node>{
+
+    @Override
+    public int compare(Node t1, Node t2) {
+        if(t1.getValue()<t2.getValue())
+            return -1;
+        else if(t1.getValue()> t2.getValue())
+            return 1;
+        return 0;
     }
+}
+
 
 // huffman
 public class HuffmanCoding {
     private Node root = null;
-    private Map<Character, Integer> freqMap;
-    private Map<Character, String> codeMap;
+    private HashMap<Character, Integer> freqMap;
+    private HashMap<Character, String> codeMap;
     private String str;
     public HuffmanCoding(String str){
         this.str = str;
@@ -60,7 +72,7 @@ public class HuffmanCoding {
     }
 
     private Node buildTree(Map<Character, Integer> freqMap) {
-        PriorityQueue<Node> q = new PriorityQueue<>(freqMap.size(), Comparator.comparingInt(Node::getData));
+        PriorityQueue<Node> q = new PriorityQueue<>(freqMap.size(), new NodeComparator());
         for (Map.Entry<Character, Integer> i : freqMap.entrySet())
             q.add(new Node(i.getValue(), i.getKey()));
 
@@ -68,7 +80,7 @@ public class HuffmanCoding {
         while (q.size() > 1) {
             Node x = q.poll();
             Node y = q.poll();
-            root = new Node(x.getData() + y.getData(), x, y);
+            root = new Node(x.getValue() + y.getValue(), x, y);
             q.add(root);
         }
         return root;
@@ -86,8 +98,12 @@ public class HuffmanCoding {
     private void countFreq(String str) {
         this.freqMap = new HashMap<>();
         for (char c : str.toCharArray()) {
-            int rs = this.freqMap.getOrDefault(c, 0);
-            this.freqMap.put(c, rs + 1);
+            if(!freqMap.containsKey(c)){
+                freqMap.put(c, 1);
+            }else{
+                int count = freqMap.get(c);
+                freqMap.put(c, count+1);
+            }
         }
     }
 }
