@@ -33,6 +33,9 @@ public class assigment2 {
                     ShannoCoding sn = new ShannoCoding(str.toLowerCase());
                     String encoded_sn = sn.encode();
                     System.out.println("Encoded: " + encoded_sn);
+                    double efficiency = sn.calcProbability();
+                    System.out.println("Hieu suat ma hoa: " + efficiency);
+                    System.out.println("Tinh du thua: " + (1-efficiency));
                     break;
                 case 3:
                     System.exit(0);
