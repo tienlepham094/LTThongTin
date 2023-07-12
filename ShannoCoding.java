@@ -64,7 +64,7 @@ public class ShannoCoding {
     }
     public void calcProbability(){
         Map<Character, Integer> freqMap = new HashMap();
-
+        int len = str.length();
         for (char c : str.toCharArray()) {
             if(!freqMap.containsKey(c)){
                 freqMap.put(c, 1);
@@ -74,7 +74,7 @@ public class ShannoCoding {
             }
         }
         for (Map.Entry<Character, Integer> i : freqMap.entrySet())
-            symbols.add(new Symbol(i.getKey(), i.getValue()));
+            symbols.add(new Symbol(i.getKey(), (double) i.getValue()/len));
         // Sort symbols in descending order of probabilities
         Collections.sort(symbols, new SymbolComparator());
 
@@ -93,7 +93,7 @@ public class ShannoCoding {
 
         // Find the split point that minimizes the difference in probabilities
         int splitIndex = -1;
-        int sum = 0;
+        double sum = 0;
 
         for (int i = start; i <= end; i++) {
             sum += symbols.get(i).getProbability();
@@ -102,7 +102,7 @@ public class ShannoCoding {
                 break;
             }
         }
-        System.out.println(splitIndex);
+//        System.out.println(splitIndex);
         for(int i =start; i<=end; i++){
             if(i<=splitIndex){
                 symbols.get(i).setCode("0");
