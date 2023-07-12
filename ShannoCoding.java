@@ -62,7 +62,7 @@ public class ShannoCoding {
         }
         return builder.toString();
     }
-    public void calcProbability(){
+    public double calcProbability(){
         Map<Character, Integer> freqMap = new HashMap();
         int len = str.length();
         for (char c : str.toCharArray()) {
@@ -77,6 +77,31 @@ public class ShannoCoding {
             symbols.add(new Symbol(i.getKey(), (double) i.getValue()/len));
         // Sort symbols in descending order of probabilities
         Collections.sort(symbols, new SymbolComparator());
+
+        //tính lượng tin riêng chuỗi H
+        double h_str = 0;
+        for (Map.Entry<Character, Integer> i : freqMap.entrySet()) {
+            h_str += -((double) i.getValue() / len * (Math.log((double) i.getValue() / len) / Math.log(2)));
+        }
+
+        //tính chiều dài trung bình từ mã
+        double average_length = 0;
+        for (Symbol s : symbols)
+        {
+            for (Map.Entry<Character, Integer> k : freqMap.entrySet())
+            {
+                if (k.getKey().equals(s.getCharacter()))
+                {
+                    average_length += s.getCode().length() * ((double) k.getValue() / len);
+                }
+            }
+        }
+
+        //tinh hieu suat ma hoa
+        double efficiency = 0;
+        efficiency = h_str/average_length;
+
+        return efficiency;
 
     }
 
