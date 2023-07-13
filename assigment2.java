@@ -1,6 +1,6 @@
 import java.sql.SQLOutput;
 import java.util.Scanner;
-public class assigment2 {
+public class assignment2 {
     public static String inputString(){
         Scanner sc = new Scanner(System.in);
         String str;
@@ -17,8 +17,8 @@ public class assigment2 {
         int choice;
         String str = inputString();
         while(true){
-            System.out.println("1. Huffman encode");
-            System.out.println("2. Shannon encode");
+            System.out.println("1. Huffman coding");
+            System.out.println("2. Shannon-Fano coding");
             System.out.println("3. Exit");
             System.out.println("Enter your choice: ");
             choice = Integer.parseInt(sc.nextLine());
@@ -26,16 +26,16 @@ public class assigment2 {
                 case 1:
                     HuffmanCoding huffman = new HuffmanCoding(str.toLowerCase());
 
-                    String encoded = huffman.encode();
-                    System.out.println("Encoded: " + encoded);
+                    String encoded_h = huffman.encode();
+                    System.out.println("Huffman coded string: " + encoded_h);
                     break;
                 case 2:
                     ShannoCoding sn = new ShannoCoding(str.toLowerCase());
                     String encoded_sn = sn.encode();
-                    System.out.println("Encoded: " + encoded_sn);
+                    System.out.println("Shannon-Fano coded string: " + encoded_sn);
                     double efficiency = sn.calcEfficiency();
-                    System.out.println("Hieu suat ma hoa: " + efficiency);
-                    System.out.println("Tinh du thua: " + (1-efficiency));
+                    System.out.println("Coding efficiency: " + efficiency);
+                    System.out.println("Redundancy: " + (1-efficiency));
                     break;
                 case 3:
                     System.exit(0);
