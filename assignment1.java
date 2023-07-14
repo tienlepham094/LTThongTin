@@ -10,6 +10,8 @@ class assignment1 {
     public static boolean ktraSo(double a){
         if(a<0)
             return false;
+        else if(a>=1)
+            return false;
         else
             return true;
     }
@@ -28,7 +30,7 @@ class assignment1 {
                 System.out.printf("Nhap ma tran [%d][%d]\n", i, j);
                 temp = Double.parseDouble(sc.nextLine());
                 while(!ktraSo(temp)){
-                    System.out.println("Nhap so khong am, vui long nhap lai");
+                    System.out.println("Nhap so khong am, so duong nho hon 1, vui long nhap lai");
                     temp = Double.parseDouble(sc.nextLine());
                 }
                 arr[i][j] = temp;
